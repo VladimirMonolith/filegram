@@ -36,7 +36,7 @@ Cервис Filegram и API для него.Интегрирован асинх�
 - Python 3.7
 - FastAPI 0.92.0
 - fasapi-users
-- Асинхронность
+- Asynchronous
 - Anyio
 - Cookies
 - JWT
