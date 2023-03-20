@@ -1,7 +1,7 @@
 .vscode/
 migrations/
 alembic.ini
-source/media/
+# source/media/
 
 
 # Byte-compiled / optimized / DLL files
