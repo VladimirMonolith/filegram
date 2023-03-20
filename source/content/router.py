@@ -1,13 +1,11 @@
 from http import HTTPStatus
-from typing import List
+from typing import List, Union
 from uuid import uuid4
 
 from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
 from fastapi.requests import Request
 from fastapi.responses import StreamingResponse
-from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import selectinload
 
 from authentication.manager import current_active_user
 from database.connection import get_async_session
@@ -15,7 +13,12 @@ from database.models import Content, User
 
 from .constans import ALLOWED_CONTENT_TYPES, UPLOADED_CONTENT_PATH
 from .schemas import ContentCreate, ContentRead, ContentUpdate
-from .utils import get_content_or_404, open_contentfile, write_content
+from .utils import (
+    get_content_or_404,
+    get_contents_with_limit_offset,
+    open_contentfile,
+    write_content
+)
 
 router = APIRouter(
     prefix='/contents',
@@ -63,12 +66,22 @@ async def upload_content(
     return 'Файл был успешно загружен.'
 
 
-@router.get('/', response_model=List[ContentRead])
-async def get_contents(session: AsyncSession = Depends(get_async_session)):
+@router.get('/', response_model=Union[List[ContentRead], str])
+async def get_contents(
+    session: AsyncSession = Depends(get_async_session),
+    limit: int = None,
+    offset: int = None
+):
     """Позволяет пользователю просматривать весь контент."""
-    query = select(Content).options(selectinload(Content.author))
-    result = await session.execute(query)
-    return result.scalars().all()
+    contents = await get_contents_with_limit_offset(
+        session=session,
+        limit=limit,
+        offset=offset
+    )
+
+    if not contents:
+        return 'Запрашиваемые данные не найдены.'
+    return contents
 
 
 @router.get('/{content_id}', response_model=ContentRead)

@@ -40,6 +40,27 @@ async def get_content_or_404(
     return content
 
 
+async def get_contents_with_limit_offset(
+    session: AsyncSession,
+    limit: int = None,
+    offset: int = None
+):
+    """Возвращает результат лимитированного запроса контента."""
+    query = select(Content).options(selectinload(Content.author))
+    result = await session.execute(query)
+
+    if limit and not offset:
+        result = result.scalars().all()[:limit]
+    elif not limit and offset:
+        result = result.scalars().all()[offset:]
+    elif limit and offset:
+        limit += offset
+        result = result.scalars().all()[offset:limit]
+    else:
+        result = result.scalars().all()
+    return result
+
+
 def ranged(
         content: IO[bytes],
         start: int = 0,
