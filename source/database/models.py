@@ -76,4 +76,3 @@ class Content(Base):
     content_path: Mapped[str] = mapped_column(
         String(length=1000), nullable=False
     )
-12
