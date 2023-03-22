@@ -33,9 +33,10 @@ Cервис Filegram и API для него.Интегрирован асинх�
 
 #### Технологи
 
-- Python 3.7
+- Python 3.9
 - FastAPI 0.92.0
 - fasapi-users
+- fastapi-cache2
 - Asynchronous
 - Anyio
 - Cookies
@@ -44,6 +45,7 @@ Cервис Filegram и API для него.Интегрирован асинх�
 - SQLAlchemy 2.0.4
 - Docker
 - PostgreSQL
+- Redis
 - Asyncpg
 - Uvicorn
 
@@ -137,6 +139,18 @@ config.set_section_option(section, "POSTGRES_DB_NAME", POSTGRES_DB_NAME)
 ```bash
 from source.database.models import Base
 target_metadata = Base.metadata
+```
+
+- Инициализировать БД:
+
+``` bash
+    alembic revision --autogenerate -m "comment"  
+```
+
+- Применить миграцию:
+
+``` bash
+    alembic upgrade heads  
 ```
 
 - Перейти в директорию source:

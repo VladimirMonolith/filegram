@@ -5,6 +5,7 @@ from uuid import uuid4
 from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
 from fastapi.requests import Request
 from fastapi.responses import StreamingResponse
+from fastapi_cache.decorator import cache
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from authentication.manager import current_active_user
@@ -67,6 +68,7 @@ async def upload_content(
 
 
 @router.get('/', response_model=Union[List[ContentRead], str])
+@cache(expire=60)
 async def get_contents(
     session: AsyncSession = Depends(get_async_session),
     limit: int = None,
