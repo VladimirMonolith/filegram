@@ -5,3 +5,5 @@ fastapi[all]
 fastapi-users[sqlalchemy]
 SQLAlchemy==2.0.4
 fastapi-cache2[redis]
+celery==5.2.7
+flower==1.2.0

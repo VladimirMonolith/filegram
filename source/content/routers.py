@@ -6,6 +6,7 @@ from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
 from fastapi.requests import Request
 from fastapi.responses import StreamingResponse
 from fastapi_cache.decorator import cache
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from authentication.manager import current_active_user
@@ -84,6 +85,22 @@ async def get_contents(
     if not contents:
         return 'Запрашиваемые данные не найдены.'
     return contents
+
+
+@router.get('/report')
+async def get_uploads_report(
+    user: User = Depends(current_active_user),
+    session: AsyncSession = Depends(get_async_session)
+):
+    """Позволяет пользователю узнать свою статистику загрузок."""
+    query = select(Content.id).filter_by(author=user)
+    result = await session.execute(query)
+    result = len(result.scalars().all())
+
+    if not result:
+        return 'У Вас нет загруженного контента'
+
+    return f'Число Ваших загрузок: {result}'
 
 
 @router.get('/{content_id}', response_model=ContentRead)

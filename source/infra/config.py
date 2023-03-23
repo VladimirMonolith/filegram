@@ -14,3 +14,8 @@ POSTGRES_PORT = os.environ.get('POSTGRES_PORT')
 POSTGRES_DB_NAME = os.environ.get('POSTGRES_DB_NAME')
 SECRET = os.environ.get('SECRET')
 PASSWORD = os.environ.get('PASSWORD')
+
+SMTP_USER = os.environ.get('SMTP_USER')
+SMTP_PASSWORD = os.environ.get('SMTP_PASSWORD')
+SMTP_HOST = os.environ.get('SMTP_HOST')
+SMTP_PORT = os.environ.get('SMTP_PORT')
