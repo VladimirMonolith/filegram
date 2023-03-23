@@ -2,8 +2,7 @@ import smtplib
 from email.message import EmailMessage
 
 from celery import Celery
-from fastapi import Depends
-from sqlalchemy import func, select
+
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from authentication.manager import current_active_user

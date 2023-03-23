@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
 from fastapi.requests import Request
 from fastapi.responses import StreamingResponse
 from fastapi_cache.decorator import cache
-from sqlalchemy import func, select
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from authentication.manager import current_active_user
