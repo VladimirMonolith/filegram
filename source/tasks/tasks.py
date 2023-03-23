@@ -3,11 +3,6 @@ from email.message import EmailMessage
 
 from celery import Celery
 
-from sqlalchemy.ext.asyncio import AsyncSession
-
-from authentication.manager import current_active_user
-from database.connection import get_async_session
-from database.models import Content, User
 from infra.config import SMTP_HOST, SMTP_PASSWORD, SMTP_PORT, SMTP_USER
 
 celery = Celery('tasks', broker='redis://localhost:6379')
