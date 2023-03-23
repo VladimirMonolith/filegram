@@ -46,6 +46,7 @@ Cервис Filegram и API для него.Интегрирован асинх�
 - Docker
 - PostgreSQL
 - Redis
+- Celery
 - Asyncpg
 - Uvicorn
 
