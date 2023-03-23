@@ -17,7 +17,8 @@ def get_email_template_uploads_report(username: str):
 
     email.set_content(
         '<div>'
-        f'<h1 style="color: red;">Здравствуйте, {username}! Вот Ваш отчет о загрузках.</h1>'
+        f'<h1 style="color: red;">Здравствуйте, {username}!'
+        f'Вот Ваш отчет о загрузках.</h1>'
         '<img src="https://asomobile.net/wp-content/uploads/2022/02/1-8.png">'
         '</div>',
         subtype='html'
