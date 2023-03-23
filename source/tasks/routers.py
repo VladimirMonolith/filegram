@@ -25,7 +25,7 @@ def get_uploads_report(user: User = Depends(current_active_user)):
     # 600 ms - Задача выполняется воркером Celery в отдельном процессе
     send_email_uploads_report.delay(username=user.username)
     return {
-        "status": HTTPStatus.OK,
-        "data": 'Письмо отправлено',
-        "details": None
+        'status': HTTPStatus.OK,
+        'data': 'Письмо отправлено',
+        'details': None
     }
