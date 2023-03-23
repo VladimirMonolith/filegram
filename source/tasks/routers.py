@@ -1,6 +1,6 @@
 from fastapi import APIRouter, BackgroundTasks, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
-
+from http import HTTPStatus
 from authentication.manager import current_active_user
 from database.connection import get_async_session
 from database.models import User
@@ -25,7 +25,7 @@ def get_uploads_report(user: User = Depends(current_active_user)):
     # 600 ms - Задача выполняется воркером Celery в отдельном процессе
     send_email_uploads_report.delay(username=user.username)
     return {
-        "status": 200,
-        "data": "Письмо отправлено",
+        "status": HTTPStatus.OK,
+        "data": 'Письмо отправлено',
         "details": None
     }
