@@ -33,4 +33,3 @@ def send_email_uploads_report(username: str):
     with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT) as server:
         server.login(SMTP_USER, SMTP_PASSWORD)
         server.send_message(email)
-  
