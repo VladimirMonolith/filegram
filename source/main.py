@@ -84,4 +84,4 @@ async def startup():
         'redis://localhost', encoding='utf8', decode_responses=True
     )
     FastAPICache.init(RedisBackend(redis), prefix='fastapi-cache')
-   
+    
