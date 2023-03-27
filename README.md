@@ -35,8 +35,8 @@ Cервис Filegram и API для него.Интегрирован асинх�
 
 - Python 3.9
 - FastAPI 0.92.0
-- fasapi-users
-- fastapi-cache2
+- fasapi-users 10.4.1
+- fastapi-cache2 0.2.1
 - Asynchronous
 - Anyio
 - Cookies
@@ -45,10 +45,12 @@ Cервис Filegram и API для него.Интегрирован асинх�
 - SQLAlchemy 2.0.4
 - Docker
 - PostgreSQL
-- Redis
-- Celery
+- Redis 4.5.2
+- Celery 5.2.7
+- Flower
 - Asyncpg
 - Uvicorn
+- CORS
 
 #### Локальный запуск проекта
 
