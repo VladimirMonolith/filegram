@@ -16,4 +16,4 @@ def get_index_page(request: Request, contents=Depends(get_contents)):
     return templates.TemplateResponse(
         'index.html',
         {"request": request, 'contents': contents}
-    ) 
+    )  
