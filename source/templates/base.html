@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>
+      {% block title %}{% endblock %}
+    </title>
+  </head>
+  <body>
+    {% include 'header.html' %}
+    <main>
+
+        {% block content %}{% endblock %}
+
+    </main>
+    {% include 'footer.html' %}
+  </body>
+</html>

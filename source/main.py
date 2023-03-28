@@ -2,6 +2,7 @@ import time
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
 from redis import asyncio as aioredis
@@ -11,9 +12,11 @@ from authentication.manager import fastapi_users
 from authentication.schemas import UserCreate, UserRead, UserUpdate
 from content.routers import router as content_router
 from tasks.routers import router as tasks_router
+from templates.routers import router as templates_router
 
 app = FastAPI(title='Filegram')
 
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 app.include_router(
     fastapi_users.get_auth_router(auth_backend),
@@ -49,6 +52,7 @@ app.include_router(
 
 app.include_router(content_router)
 app.include_router(tasks_router)
+app.include_router(templates_router)
 
 
 origins = [

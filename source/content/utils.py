@@ -46,7 +46,9 @@ async def get_contents_with_limit_offset(
     offset: int = None
 ):
     """Возвращает результат лимитированного запроса контента."""
-    query = select(Content).options(selectinload(Content.author))
+    query = select(Content).options(
+        selectinload(Content.author)
+    ).order_by(Content.created.desc())
     result = await session.execute(query)
 
     if limit and not offset:
