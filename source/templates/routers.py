@@ -18,4 +18,3 @@ def get_index_page(request: Request, contents=Depends(get_contents)):
         {"request": request, 'contents': contents}
     )
 
-      
