@@ -128,4 +128,3 @@ async def open_contentfile(
             f'bytes {range_start}-{range_end}/{content_size}'
 
     return content, status_code, content_length, headers, content_type
-  
