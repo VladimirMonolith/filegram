@@ -15,5 +15,13 @@ templates = Jinja2Templates(directory='templates')
 def get_index_page(request: Request, contents=Depends(get_contents)):
     return templates.TemplateResponse(
         'index.html',
-        {"request": request, 'contents': contents}
+        {'request': request, 'contents': contents}
+    )
+
+
+@router.get('/chat')
+def get_chat_page(request: Request):
+    return templates.TemplateResponse(
+        'chat.html',
+        {'request': request}
     )

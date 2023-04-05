@@ -76,3 +76,12 @@ class Content(Base):
     content_path: Mapped[str] = mapped_column(
         String(length=1000), nullable=False
     )
+
+
+class Message(Base):
+    """Модель сообщения."""
+
+    __tablename__ = 'messages'
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, nullable=False)
+    message: Mapped[str] = mapped_column(String(length=1000), nullable=False)

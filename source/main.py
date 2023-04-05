@@ -10,6 +10,7 @@ from redis import asyncio as aioredis
 from authentication.config import auth_backend
 from authentication.manager import fastapi_users
 from authentication.schemas import UserCreate, UserRead, UserUpdate
+from chat.routers import router as chat_router
 from content.routers import router as content_router
 from tasks.routers import router as tasks_router
 from templates.routers import router as templates_router
@@ -53,6 +54,7 @@ app.include_router(
 app.include_router(content_router)
 app.include_router(tasks_router)
 app.include_router(templates_router)
+app.include_router(chat_router)
 
 
 origins = [
