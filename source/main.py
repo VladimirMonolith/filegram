@@ -17,7 +17,7 @@ from templates.routers import router as templates_router
 
 app = FastAPI(title='Filegram')
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount('/static', StaticFiles(directory='static'), name='static')
 
 app.include_router(
     fastapi_users.get_auth_router(auth_backend),
