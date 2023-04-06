@@ -36,14 +36,13 @@ class ConnectionManager:
 
     @staticmethod
     async def add_messages_to_database(message: str):
-        """."""
+        """Сохраняет сообщения чата в БД."""
         async with async_session_maker() as session:
             statement = insert(Message).values(
                 message=message
             )
             await session.execute(statement)
             await session.commit()
-
 
 
 manager = ConnectionManager()
