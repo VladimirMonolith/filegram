@@ -30,7 +30,7 @@ class ConnectionManager:
 
     async def broadcast(self, message: str, add_to_db: bool):
         if add_to_db:
-            await self.add_messages_to_database(message)        
+            await self.add_messages_to_database(message)
         for connection in self.active_connections:
             await connection.send_text(message)
 
