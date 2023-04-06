@@ -52,11 +52,10 @@ manager = ConnectionManager()
 async def get_last_messages(
     session: AsyncSession = Depends(get_async_session),
 ):
-    """."""
+    """Выводит последние три сообщения в чате."""
     query = select(Message).order_by(Message.id.desc()).limit(3)
     result = await session.execute(query)
     return result.scalars().all()
-
 
 
 @router.websocket('/ws/{client_id}')
