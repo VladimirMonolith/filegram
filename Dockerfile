@@ -10,8 +10,6 @@ RUN pip install -r ./requirements.txt --no-cache-dir
 
 COPY . .
 
-RUN chmod a+x docker/*.sh
-
 RUN alembic upgrade head
 
 WORKDIR source
