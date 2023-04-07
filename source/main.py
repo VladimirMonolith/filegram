@@ -12,6 +12,7 @@ from authentication.manager import fastapi_users
 from authentication.schemas import UserCreate, UserRead, UserUpdate
 from chat.routers import router as chat_router
 from content.routers import router as content_router
+from infra.config import REDIS_HOST, REDIS_PORT
 from tasks.routers import router as tasks_router
 from templates.routers import router as templates_router
 
@@ -87,6 +88,8 @@ async def add_process_time_header(request: Request, call_next):
 @app.on_event('startup')
 async def startup():
     redis = aioredis.from_url(
-        'redis://localhost', encoding='utf8', decode_responses=True
+        f'redis://{REDIS_HOST}:{REDIS_PORT}',
+        encoding='utf8',
+        decode_responses=True
     )
     FastAPICache.init(RedisBackend(redis), prefix='fastapi-cache')

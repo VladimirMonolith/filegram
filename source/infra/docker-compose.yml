@@ -1,11 +1,116 @@
-version: '3.3'
+version: '3.7'
 services:
 
   db:
     container_name: 'db'
     image: postgres:14.1-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
     restart: always
     env_file:
-      - ./.env
+      - ./.env-docker
     ports:
       - '5432:5432'
+
+  redis:
+    container_name: 'redis'
+    image: redis:7
+    restart: always
+    depends_on:
+      - db
+    env_file:
+      - ./.env-docker
+    ports:
+      - '6379:6379'
+
+  app:
+    container_name: 'app'
+    build:
+      context: ../../
+    command: ['/app/docker/app.sh']
+    restart: always
+    volumes:
+      - static:/app/source/static/
+      - media:/app/source/media/
+    depends_on:
+      - db
+      - redis
+    env_file:
+      - ./.env-docker
+    ports:
+      - '7567:8000'
+
+  celery:
+    container_name: 'celery'
+    build:
+      context: ../../
+    command: ['/app/docker/celery.sh', 'celery']
+    depends_on:
+      - redis
+    env_file:
+      - ./.env-docker
+
+  flower:
+    container_name: 'flower'
+    build:
+      context: ../../
+    command: ['/app/docker/celery.sh', 'flower']
+    depends_on:
+      - redis
+      - celery
+    env_file:
+      - ./.env-docker
+    ports:
+      - '8888:5555'
+
+volumes:
+  postgres_data:
+  static:
+  media:
+
+
+# version: '3.3'
+# services:
+
+#   db:
+#     image: postgres:13.0-alpine
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data/
+#     env_file:
+#       - ./.env
+
+#   backend:
+#     image: monolith200/foodgram_backend:latest
+#     restart: always
+#     volumes:
+#       - static:/app/static/
+#       - media:/app/media/
+#     depends_on:
+#       - db
+#     env_file:
+#       - ./.env
+
+#   frontend:
+#     image: monolith200/foodgram_frontend:latest
+#     volumes:
+#       - ../frontend/:/app/result_build/
+
+#   nginx:
+#     image: nginx:1.19.3
+#     ports:
+#       - "80:80"
+#     volumes:
+#       - ./nginx.conf:/etc/nginx/conf.d/default.conf
+#       - ../frontend/build:/usr/share/nginx/html/
+#       - ../docs/:/usr/share/nginx/html/api/docs/
+#       - static:/var/html/static
+#       - media:/var/html/media
+#     restart: always
+#     depends_on:
+#       - backend
+#       - frontend
+
+# volumes:
+#   postgres_data:
+#   static:
+#   media:
