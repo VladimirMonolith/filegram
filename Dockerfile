@@ -10,8 +10,9 @@ RUN pip install -r ./requirements.txt --no-cache-dir
 
 COPY . .
 
-RUN alembic upgrade head
+# RUN alembic upgrade head
 
-WORKDIR source
+# WORKDIR source
 
-CMD gunicorn main:app --workers 1 --worker-class uvicorn.workers.UvicornWorker --bind=0.0.0.0:8000
+# CMD gunicorn main:app --workers 1 --worker-class uvicorn.workers.UvicornWorker --bind=0.0.0.0:8000
+ 
