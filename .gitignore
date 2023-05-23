@@ -2,6 +2,7 @@
 migrations/
 alembic.ini
 source/media/
+.env-docker
 
 
 # Byte-compiled / optimized / DLL files

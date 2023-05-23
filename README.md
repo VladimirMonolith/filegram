@@ -151,7 +151,7 @@ target_metadata = Base.metadata
 - Инициализировать БД:
 
 ``` bash
-    alembic revision --autogenerate -m "comment"  
+    alembic revision --autogenerate -m 'comment'  
 ```
 
 - Применить миграцию:
@@ -177,7 +177,7 @@ target_metadata = Base.metadata
 Регистрация пользователя:
 
 ```bash
-   POST /auth/register
+    POST /auth/register
 ```
 
 Получение токена верификации:
