@@ -7,13 +7,14 @@
 [![Anyio](https://img.shields.io/badge/-Anyio-464646?style=flat-square&logo=Anyio)](https://anyio.readthedocs.io/en/stable/)
 [![Cookies](https://img.shields.io/badge/-Cookies-464646?style=flat-square&logo=Cookies)]()
 [![JWT](https://img.shields.io/badge/-JWT-464646?style=flat-square&logo=JWT)]()
+[![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-464646?style=flat-square&logo=PostgreSQL)](https://www.postgresql.org/)
 [![Alembic](https://img.shields.io/badge/-Alembic-464646?style=flat-square&logo=Alembic)](https://alembic.sqlalchemy.org/en/latest/)
 [![SQLAlchemy](https://img.shields.io/badge/-SQLAlchemy-464646?style=flat-square&logo=SQLAlchemy)](https://www.sqlalchemy.org/)
 [![Docker](https://img.shields.io/badge/-Docker-464646?style=flat-square&logo=docker)](https://www.docker.com/)
-[![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-464646?style=flat-square&logo=PostgreSQL)](https://www.postgresql.org/)
 [![Redis](https://img.shields.io/badge/-Redis-464646?style=flat-square&logo=Redis)](https://redis.io/)
 [![Celery](https://img.shields.io/badge/-Celery-464646?style=flat-square&logo=Celery)](https://docs.celeryq.dev/en/stable/)
-[![Uvicorn](https://img.shields.io/badge/-Uvicorn-464646?style=flat-square&logo=gunicorn)](https://www.uvicorn.org/)
+[![Uvicorn](https://img.shields.io/badge/-Uvicorn-464646?style=flat-square&logo=uvicorn)](https://www.uvicorn.org/)
+[![Gunicorn](https://img.shields.io/badge/-Gunicorn-464646?style=flat-square&logo=gunicorn)](https://gunicorn.org/)
 
 ## Описание
 
@@ -89,16 +90,10 @@ Cоздать и активировать виртуальное окружен�
    cd source/infra
 ```
 
-- Создать файл .env по образцу:
+- Создать .env-файл для локального запуска по образцу:
 
 ```bash
-   cp .env.example .env
-```
-
-- Выполнить команду для запуска БД PostgreSQL в Docker-контейнере:
-
-```bash
-   docker-compose up 
+   cp .env-example .env
 ```
 
 - Установить зависимости из файла requirements.txt:
@@ -121,7 +116,7 @@ Cоздать и активировать виртуальное окружен�
    sqlalchemy.url = postgresql+asyncpg://%(POSTGRES_USER)s:%(POSTGRES_PASSWORD)s@%(POSTGRES_HOST)s:%(POSTGRES_PORT)s/%(POSTGRES_DB_NAME)s?async_fallback=True
 ```
 
-- В папке migrations в env файле должны быть следующие импорты:
+- В папке migrations в .env файле должны быть следующие импорты:
 
 ```bash
 from alembic import context
@@ -171,6 +166,26 @@ target_metadata = Base.metadata
 
 ``` bash
     uvicorn main:app --reload   
+```
+
+#### Запуск в контейнерах Docker
+
+- Перейти в директорию infra:
+
+```bash
+   cd source/infra
+```
+
+- Создать файл .env-docker для запуска в контейнерах:
+
+```bash
+   cp .env-example .env-docker
+```
+
+- Выполнить команду для запуска:
+
+```bash
+   docker-compose up -d --build
 ```
 
 #### Примеры некоторых запросов API
