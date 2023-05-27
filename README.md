@@ -60,7 +60,7 @@ Cервис загрузки медиафайлов и плеер.Пользов
 
 #### Локальный запуск проекта
 
-- Преварительно необходимо установить Docker для вашей системы.
+- Преварительно необходимо установить Docker и Redis для вашей системы.
 
 - Склонировать репозиторий:
 
@@ -166,6 +166,25 @@ target_metadata = Base.metadata
 
 ``` bash
     uvicorn main:app --reload   
+```
+
+- Запустить Redis:
+
+``` bash
+    redis-server.exe
+    redis-cli.exe
+```
+
+- Запустить Celery:
+
+``` bash
+    celery -A tasks.tasks:celery worker --loglevel=INFO --pool=solo
+```
+
+- Запустить Flower:
+
+``` bash
+    celery -A tasks.tasks:celery flower
 ```
 
 #### Запуск в контейнерах Docker
