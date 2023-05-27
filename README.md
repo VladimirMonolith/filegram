@@ -257,7 +257,7 @@ target_metadata = Base.metadata
    GET /contents/streamig/content_id
 ```
 
-#### Полный список запросов API находятся в документации
+#### Полный список запросов API находится в документации
 
 #### Автор
 
